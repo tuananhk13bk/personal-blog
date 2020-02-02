@@ -1,0 +1,34 @@
+scalar Date
+scalar MongoObjectId
+
+type Category {
+  title: String!
+  priority: Int!
+  level: Int!
+  parentId: MongoObjectId
+  createdDate: Date
+  lastUpdatedDate: Date
+}
+
+type Query {
+  getAllCategories: [Category]
+}
+
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput): Category
+  updateCategory(id: ID!): Category
+  deleteCategory(id: ID!): Category
+}
+
+type Subscription {
+  postCreated: Post
+}
+
+input CreateCategoryInput {
+  title: String!
+  priority: Int!
+  level: Int!
+  parentId: MongoObjectId
+  createdDate: Date
+  lastUpdatedDate: Date
+}

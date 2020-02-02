@@ -1,0 +1,18 @@
+LogInfoSchema = {
+  level: enum('info', 'error', etc),
+  date: Date,
+  method: Method,
+  ip: IP,
+  hostname: string,
+  header: {
+    [key:string]: string
+  },
+  message: string
+  stack: {[key:string]:string},
+  originalUrl: URI,
+  route: URI,
+  query: {[key:string]:string},
+  params: {[key:string]:string},
+}
+
+console.log format [level] timestamp - ip - `method + originalUrl` - +executionTime
