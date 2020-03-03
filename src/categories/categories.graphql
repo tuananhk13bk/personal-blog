@@ -2,6 +2,7 @@ scalar Date
 scalar MongoObjectId
 
 type Category {
+  id: MongoObjectId
   title: String!
   priority: Int!
   level: Int!
@@ -28,7 +29,4 @@ input CreateCategoryInput {
   title: String!
   priority: Int!
   level: Int!
-  parentId: MongoObjectId
-  createdDate: Date
-  lastUpdatedDate: Date
 }

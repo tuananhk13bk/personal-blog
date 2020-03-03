@@ -1,0 +1,23 @@
+scalar Date
+scalar MongoObjectId
+
+type Tag {
+  id: MongoObjectId
+  title: String!
+  priority: Int!
+  createdDate: Date
+  lastUpdatedDate: Date
+}
+
+input CreateTagInput {
+  title: String!
+  priority: Int!
+}
+
+type Query {
+  getAllTags: [Tag]
+}
+
+type Mutation {
+  createTag(createTagInput: CreateTagInput): Tag
+}

@@ -1,0 +1,78 @@
+type Query {
+  getAllPosts(getAllPostsInput: GetAllPostsInput): PostsResponse
+  getPostById(id: ID!): Post
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput): MutationSuccessResponse
+  updatePost(id: ID!): Post
+  deletePost(id: ID!): Post
+}
+
+type Subscription {
+  postCreated: Post
+}
+
+type PostAuthor {
+  id: MongoObjectId
+  fullname: String
+  avatar: String
+}
+
+type PostTag {
+  id: MongoObjectId
+  title: String
+}
+
+type Post {
+  id: MongoObjectId
+  title: String
+  content: String
+  status: RecordStatus
+  author: PostAuthor
+  tags: [PostTag]
+  createdDate: Date
+  lastUpdatedDate: Date
+}
+
+type PostsBucket {
+  count: Int
+  bucketOrder: Int
+  firstInsertedDate: Date
+  lastInsertedDate: Date
+  data: [Post]
+}
+
+type PostsResponse {
+  page: Int!
+  totalPages: Int!
+  itemsPerPage: Int!
+  totalItems: Int!
+  data: [Post]!
+}
+
+input GetAllPostsInput {
+  page: Int!
+  itemsPerPage: Int!
+  tags: [MongoObjectId]
+}
+
+input PostAuthorInput {
+  id: MongoObjectId!
+  fullname: String!
+  joinDate: Date!
+  avatar: String
+}
+
+input PostTagInput {
+  id: MongoObjectId
+  title: String
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+  status: RecordStatus!
+  author: PostAuthorInput!
+  tags: [PostTagInput]
+}

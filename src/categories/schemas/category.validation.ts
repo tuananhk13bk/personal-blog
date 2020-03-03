@@ -1,4 +1,4 @@
-import Joi = require('@hapi/joi')
+import * as Joi from '@hapi/joi'
 
 export const createCategorySchema = Joi.object({
   title: Joi.string()

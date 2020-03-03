@@ -7,6 +7,8 @@ class MongooseConfigService implements MongooseOptionsFactory {
     return {
       uri: process.env.MONGO_URI_LOCAL,
       useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
       useUnifiedTopology: true,
     }
   }

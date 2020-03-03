@@ -1,0 +1,54 @@
+scalar Date
+scalar MongoObjectId
+
+enum CommentStatus {
+  Activate
+  Deactivate
+}
+
+type CommentAuthor {
+  id: MongoObjectId
+  fullname: String
+  avatar: String
+}
+
+type CommentReply {
+  id: MongoObjectId
+  content: String
+  status: CommentStatus
+  author: CommentAuthor
+  createdDate: Date
+  lastUpdatedDate: Date
+}
+
+type Comment {
+  id: MongoObjectId
+  content: String
+  status: CommentStatus
+  author: CommentAuthor
+  postId: MongoObjectId
+  reply: [CommentReply]
+  createdDate: Date
+  lastUpdatedDate: Date
+}
+
+input CommentAuthorInput {
+  id: MongoObjectId
+  fullname: String
+  avatar: String
+}
+
+input CreateCommentInput {
+  content: String!
+  status: CommentStatus!
+  author: CommentAuthorInput!
+  postId: MongoObjectId!
+}
+
+type Query {
+  getAllComments: [Comment]
+}
+
+type Mutation {
+  createComment(createCommentInput: CreateCommentInput): Comment
+}

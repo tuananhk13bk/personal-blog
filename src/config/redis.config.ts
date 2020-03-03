@@ -12,6 +12,8 @@ class RedisConfigService implements CacheOptionsFactory {
       store: redisStore,
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT,
+      ttl: 10,
+      max: 10,
     }
   }
 }

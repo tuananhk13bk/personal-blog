@@ -1,0 +1,18 @@
+scalar Date
+scalar MongoObjectId
+
+enum RecordStatus {
+  Activate
+  Pending
+  Deactivate
+}
+
+enum MutationStatus {
+  Success
+  Failed
+}
+
+type MutationSuccessResponse {
+  message: String!
+  status: MutationStatus!
+}

@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import { Logger } from 'winston'
-import { APP_LOGGER } from 'src/constants/providers.constant'
+import { APP_LOGGER } from 'src/common/constants/providers.constant'
 import { buildGraphqlSuccessLog } from 'src/utils/logger.util'
 
 @Injectable()
@@ -18,11 +18,11 @@ export class LoggerInterceptor implements NestInterceptor {
     const now = Date.now()
     return next.handle().pipe(
       tap(() => {
-        const { message, metadata } = buildGraphqlSuccessLog({
+        const logObject = buildGraphqlSuccessLog({
           context,
           receiveRequestTime: now,
         })
-        this.logger.info(message, metadata)
+        this.logger.info(logObject)
       }),
     )
   }

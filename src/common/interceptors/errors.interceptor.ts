@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common'
 import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
-import { APP_LOGGER } from 'src/constants/providers.constant'
+import { APP_LOGGER } from 'src/common/constants/providers.constant'
 import { Logger } from 'winston'
 import { buildGraphqlErrorLog } from 'src/utils/logger.util'
 import { GeneralError } from '../general-error'
@@ -20,12 +20,12 @@ export class ErrorsInterceptor implements NestInterceptor {
     const now = Date.now()
     return next.handle().pipe(
       catchError((err: GeneralError) => {
-        const { message, metadata } = buildGraphqlErrorLog({
+        const logObject = buildGraphqlErrorLog({
           context,
           receiveRequestTime: now,
           error: err,
         })
-        this.logger.error(message, metadata)
+        this.logger.error(logObject)
         return throwError(err)
       }),
     )

@@ -4,11 +4,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "nest",
+      "runtimeExecutable": "nodemon",
       "program": "${workspaceFolder}/src/main.ts",
+      "restart": true,
+      "console": "integratedTerminal",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "skipFiles": ["<node_internals>/**"],
-      "smartStep": true
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
     }
   ],
   "compounds": []

@@ -1,0 +1,71 @@
+scalar Date
+scalar Upload
+scalar MongoObjectId
+
+type Query {
+  getAllUsers(getAllUsersInput: GetAllUsersInput): [User]
+  getUserByEmail(email: String!): User
+}
+
+type Mutation {
+  register(registerInput: RegisterInput): User
+  deleteUserById(id: MongoObjectId): User
+}
+
+type User {
+  id: MongoObjectId
+  email: String
+  fullname: String
+  nickname: String
+  avatar: String
+  occupation: String
+  social: [Social]
+  status: UserStatus
+  postCount: Int
+  commentCount: Int
+  createdDate: Date
+  lastUpdatedDate: Date
+}
+
+type Social {
+  type: SocialEnum!
+  link: String!
+}
+
+enum SocialEnum {
+  Facebook
+  Github
+  Instagram
+  Twitter
+}
+
+enum UserStatus {
+  Activate
+  Deactivate
+}
+
+input SocialInput {
+  type: SocialEnum!
+  link: String!
+}
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  fullname: String!
+  status: UserStatus!
+  nickname: String
+  avatar: Upload
+  occupation: String
+  social: [SocialInput]
+}
+
+input GetAllUsersInput {
+  status: UserStatus
+}
