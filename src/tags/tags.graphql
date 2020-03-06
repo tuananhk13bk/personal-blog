@@ -1,23 +1,32 @@
-scalar Date
-scalar MongoObjectId
-
 type Tag {
   id: MongoObjectId
-  title: String!
-  priority: Int!
+  title: String
+  status: RecordStatus
+  postsCount: Int
   createdDate: Date
   lastUpdatedDate: Date
 }
 
 input CreateTagInput {
   title: String!
-  priority: Int!
+  status: RecordStatus!
+}
+
+input GetAllTagsInput {
+  status: RecordStatus!
+  sort: GetAllTagsSortInput!
+}
+
+input GetAllTagsSortInput {
+  title: SortOrder
+  postsCount: SortOrder
+  lastUpdatedDate: SortOrder
 }
 
 type Query {
-  getAllTags: [Tag]
+  getAllTags(getAllTagsInput: GetAllTagsInput): [Tag]
 }
 
 type Mutation {
-  createTag(createTagInput: CreateTagInput): Tag
+  createTag(createTagInput: CreateTagInput): MutationSuccessResponse
 }

@@ -7,12 +7,17 @@ enum RecordStatus {
   Deactivate
 }
 
-enum MutationStatus {
+enum RequestStatus {
   Success
   Failed
 }
 
+enum SortOrder {
+  ascending
+  descending
+}
+
 type MutationSuccessResponse {
   message: String!
-  status: MutationStatus!
+  status: RequestStatus!
 }

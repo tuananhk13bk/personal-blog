@@ -10,15 +10,15 @@ export enum CommentStatus {
     Deactivate = "Deactivate"
 }
 
-export enum MutationStatus {
-    Success = "Success",
-    Failed = "Failed"
-}
-
 export enum RecordStatus {
     Activate = "Activate",
     Pending = "Pending",
     Deactivate = "Deactivate"
+}
+
+export enum RequestStatus {
+    Success = "Success",
+    Failed = "Failed"
 }
 
 export enum SocialEnum {
@@ -26,6 +26,11 @@ export enum SocialEnum {
     Github = "Github",
     Instagram = "Instagram",
     Twitter = "Twitter"
+}
+
+export enum SortOrder {
+    ascending = "ascending",
+    descending = "descending"
 }
 
 export enum UserStatus {
@@ -62,13 +67,24 @@ export class CreatePostInput {
 
 export class CreateTagInput {
     title: string;
-    priority: number;
+    status: RecordStatus;
 }
 
 export class GetAllPostsInput {
     page: number;
     itemsPerPage: number;
     tags?: MongoObjectId[];
+}
+
+export class GetAllTagsInput {
+    status: RecordStatus;
+    sort: GetAllTagsSortInput;
+}
+
+export class GetAllTagsSortInput {
+    title?: SortOrder;
+    postsCount?: SortOrder;
+    lastUpdatedDate?: SortOrder;
 }
 
 export class GetAllUsersInput {
@@ -171,7 +187,7 @@ export abstract class IMutation {
 
     abstract deletePost(id: string): Post | Promise<Post>;
 
-    abstract createTag(createTagInput?: CreateTagInput): Tag | Promise<Tag>;
+    abstract createTag(createTagInput?: CreateTagInput): MutationSuccessResponse | Promise<MutationSuccessResponse>;
 
     abstract register(registerInput?: RegisterInput): User | Promise<User>;
 
@@ -180,7 +196,7 @@ export abstract class IMutation {
 
 export class MutationSuccessResponse {
     message: string;
-    status: MutationStatus;
+    status: RequestStatus;
 }
 
 export class Post {
@@ -230,7 +246,7 @@ export abstract class IQuery {
 
     abstract getPostById(id: string): Post | Promise<Post>;
 
-    abstract getAllTags(): Tag[] | Promise<Tag[]>;
+    abstract getAllTags(getAllTagsInput?: GetAllTagsInput): Tag[] | Promise<Tag[]>;
 
     abstract getAllUsers(getAllUsersInput?: GetAllUsersInput): User[] | Promise<User[]>;
 
@@ -248,8 +264,9 @@ export abstract class ISubscription {
 
 export class Tag {
     id?: MongoObjectId;
-    title: string;
-    priority: number;
+    title?: string;
+    status?: RecordStatus;
+    postsCount?: number;
     createdDate?: Date;
     lastUpdatedDate?: Date;
 }

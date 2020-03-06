@@ -7,7 +7,7 @@ import {
   PostsResponse,
   RecordStatus,
   MutationSuccessResponse,
-  MutationStatus,
+  RequestStatus,
 } from 'src/graphql.schema'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model, Document } from 'mongoose'
@@ -92,7 +92,7 @@ export class PostsService {
       )
       return {
         message: 'Create post successfully',
-        status: MutationStatus.Success,
+        status: RequestStatus.Success,
       }
     } catch (error) {
       throw new GeneralError({

@@ -20,6 +20,7 @@ import { TagsModule } from './tags/tags.module'
 import { CommentsModule } from './comments/comments.module'
 import { UserQueue } from './common/constants/queues.constant'
 import { GqlCacheInterceptor } from './common/interceptors/gql-cache.interceptor'
+import { UtilsModule } from './utils/utils.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -46,6 +47,7 @@ import { GqlCacheInterceptor } from './common/interceptors/gql-cache.interceptor
     UsersModule,
     TagsModule,
     CommentsModule,
+    UtilsModule,
   ],
   providers: [
     {
